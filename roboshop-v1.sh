@@ -1,6 +1,8 @@
 #!/bin/bash
 ami_id="ami-0055977a6e828a4f4"
 instance_type="t3.micro"
+domain_name="sivapractice.online"
+hosted_zone_id="Z01672782FAA0S9T68UEK"
 
 
 instance_id=$(aws ec2 run-instances \
@@ -19,3 +21,25 @@ ip=$(aws ec2 describe-instances \
 )
 
 echo "public_ip:$ip"
+
+r53_record="${domain_name}"
+
+aws route53 change-resource-record-sets \
+    --hosted-zone-id $hosted_zone_id \
+    --change-batch {
+	  "Changes": [
+		{
+		  "Action": "UPSERT",
+		  "ResourceRecordSet": {
+			"Name": "$r53_record",
+			"Type": "A",
+			"TTL": 1,
+			"ResourceRecords": [
+			  {
+				"Value": "$ip"
+			  }
+			]
+		  }
+		}
+	  ]
+    }
