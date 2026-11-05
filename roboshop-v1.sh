@@ -13,7 +13,7 @@ do
                 --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]' \
                 --query "Instances[0].InstanceId" \
                 --output text)
-                
+
     echo "instanceid:$instance_id"
 
     if [ instance != "frontend" ]; then
@@ -44,9 +44,10 @@ do
                 "Type": "A",
                 "TTL": 1,
                 "ResourceRecords": [{"Value": "'$ip'"}]
-            }
+                }
             }
         ]
-        }'
+    }'
+
     echo "updated route53 record for $instance"
 done
