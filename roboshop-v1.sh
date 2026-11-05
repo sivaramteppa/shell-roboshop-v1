@@ -30,6 +30,7 @@ do
         --query 'Reservations[].Instances[].PublicIpAddress' \
         --output text
     )
+    fi
     r53_record="${domain_name}"
 
     echo record: $r53_record
@@ -48,6 +49,6 @@ do
             }
         ]
     }'
-
+        
     echo "updated route53 record for $instance"
 done
