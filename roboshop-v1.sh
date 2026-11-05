@@ -31,7 +31,7 @@ aws route53 change-resource-record-sets \
 		{
 		  "Action": "UPSERT",
 		  "ResourceRecordSet": {
-			"Name": "$r53_record",
+			"Name": "shell.sivapractice.online",
 			"Type": "A",
 			"TTL": 1,
 			"ResourceRecords": [{"Value": "'$ip'"}]
