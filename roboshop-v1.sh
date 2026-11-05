@@ -10,7 +10,7 @@ do
                 --image-id $ami_id \
                 --instance-type $instance_type\
                 --security-groups "roboshop-common" \
-                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
+                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]"  \
                 --query "Instances[0].InstanceId" \
                 --output text)
 
@@ -23,6 +23,7 @@ do
         --output text
     )
     r53_record="${instance}.${domain_name}"
+    echo "$r53_record"
 
     else
     ip=$(aws ec2 describe-instances \
@@ -31,6 +32,7 @@ do
         --output text
     )
      r53_record="${domain_name}"
+     echo "$r53_record"
     fi
    
     #update route53 record   
