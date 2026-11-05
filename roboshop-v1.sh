@@ -24,6 +24,7 @@ echo "public_ip:$ip"
 
 r53_record="${domain_name}"
 
+echo record: $r53_record
 aws route53 change-resource-record-sets \
     --hosted-zone-id $hosted_zone_id \
     --change-batch '{
